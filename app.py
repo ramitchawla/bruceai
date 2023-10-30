@@ -74,7 +74,8 @@ def main():
         Peak Heart Rate: {peak_heart_rate}
         Steps: {steps}
         Notes: {notes}
-        """
+        """ 
+        
 
         # OpenAI API Call
         openai.api_key = openai_api_key
