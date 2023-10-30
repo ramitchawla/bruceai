@@ -42,6 +42,8 @@ def main():
         Notes: {notes}
         """
 
+        
+
         # Simulating the model behavior
         output, out_diffusion = model_simulation([result_text])
         
