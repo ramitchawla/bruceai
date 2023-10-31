@@ -11,7 +11,8 @@ import numpy as np  # Make sure to import numpy
 config_ini_location = 'config_new.ini'
 config = configparser.ConfigParser()
 config.read(config_ini_location)
-openai_api_key = config['OpenAI']['API_KEY']
+#openai_api_key = config['OpenAI']['API_KEY']
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 # Model Initialization
 USE_DIFFUSION_DECODER = False
