@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 import openai
 import configparser
 from audiocraft.models import MusicGen, MultiBandDiffusion
@@ -8,9 +9,9 @@ import io
 import numpy as np  # Make sure to import numpy
 
 # Configuration Loading
-config_ini_location = 'config_new.ini'
-config = configparser.ConfigParser()
-config.read(config_ini_location)
+# config_ini_location = 'config_new.ini'
+# config = configparser.ConfigParser()
+# config.read(config_ini_location)
 #openai_api_key = config['OpenAI']['API_KEY']
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
