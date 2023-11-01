@@ -6,7 +6,7 @@ from audiocraft.models import MusicGen, MultiBandDiffusion
 import torch
 import soundfile as sf
 import io
-import numpy as np  # Make sure to import numpy
+import numpy as np 
 
 
 # Configuration Loading
@@ -109,3 +109,4 @@ def main():
 # Running the main function
 if __name__ == "__main__":
     main()
+ 
