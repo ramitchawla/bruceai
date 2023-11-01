@@ -23,11 +23,13 @@ model = MusicGen.get_pretrained('facebook/musicgen-small')
 if USE_DIFFUSION_DECODER:
     mbd = MultiBandDiffusion.get_mbd_musicgen()
 
+
 model.set_generation_params(
     use_sampling=True,
     top_k=250,
     duration=5
 )
+
 
 def generate_audio(result_text):
     output = model.generate(
@@ -46,7 +48,7 @@ def numpy_to_bytes(audio_data, sample_rate):
     sf.write(buffer, audio_data_2d.T, sample_rate, format='WAV')  # Transpose if necessary
     return buffer.getvalue()
 
-# Streamlit App
+#Streamlit App
 def main():
     st.title("Fitness Activity Audio Generator")
 
