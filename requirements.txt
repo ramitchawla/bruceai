@@ -4,3 +4,9 @@ streamlit-extras
 altair==4.1.0
 openai
 audiocraft 
+
+configparser
+torch
+soundfile
+io
+numpy 
