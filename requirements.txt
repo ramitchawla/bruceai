@@ -8,7 +8,6 @@ audiocraft
 configparser
 torch
 soundfile
-io
 numpy 
 
 
