@@ -8,6 +8,7 @@ import soundfile as sf
 import io
 import numpy as np  # Make sure to import numpy
 
+
 # Configuration Loading
 # config_ini_location = 'config_new.ini'
 # config = configparser.ConfigParser()
@@ -62,6 +63,8 @@ def main():
     peak_heart_rate = st.text_input("Peak Heart Rate", value='90')
     steps = st.text_input("Steps", value='400')
     notes = st.text_area("Notes", value='I feel tired and unmotivated.')
+
+
 
     # Action Button
     if st.button("Action"):
