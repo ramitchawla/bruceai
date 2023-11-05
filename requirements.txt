@@ -3,8 +3,7 @@ streamlit==1.18.1
 streamlit-extras
 altair==4.1.0
 openai
-torch
-audiocraft
+audiocraft==0.0.2
 
 
 
