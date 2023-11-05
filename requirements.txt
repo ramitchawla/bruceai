@@ -4,8 +4,7 @@ streamlit-extras
 altair==4.1.0
 openai
 torch
-torchaudio>=2.0.0
-audiocraft==0.0.2
+audiocraft
 
 
 
