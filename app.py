@@ -5,18 +5,23 @@ import configparser
 from audiocraft.models import MusicGen, MultiBandDiffusion
 import torch
 import soundfile as sf
-
+import os
 import numpy as np 
 
 
+open_AI_key = os.environ.get('OPENAI_API_KEY')
+#openai.api_key = open_AI_key
 
 
 
 # Configuration Loading
-config_ini_location = 'config_new.ini'
-config = configparser.ConfigParser()
-config.read(config_ini_location)
-openai_api_key = config['OpenAI']['API_KEY']
+# config_ini_location = 'config_new.ini'
+# config = configparser.ConfigParser()
+# config.read(config_ini_location)
+# openai_api_key = config['OpenAI']['API_KEY']
+
+
+#openai_api_key = openai.api_key
 
 #openai.api_key = os.environ.get('OPENAI_API_KEY')
 
