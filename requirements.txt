@@ -1,10 +1,10 @@
 python-dotenv==1.0.0
 streamlit==1.18.1
 streamlit-extras
-
+audiocraft==0.0.2
 altair==4.1.0
 openai==0.28.1
-audiocraft==0.0.2
+
 
 
 
