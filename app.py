@@ -97,7 +97,7 @@ def main():
         
 
         # OpenAI API Call
-        openai.api_key = openai_api_key
+        openai.api_key = open_AI_key
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=(
