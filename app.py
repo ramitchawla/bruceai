@@ -2,7 +2,7 @@ import streamlit as st
 import io
 import openai
 import configparser
-from audiocraft.models import MusicGen, MultiBandDiffusion
+#from audiocraft.models import MusicGen, MultiBandDiffusion
 import torch
 import soundfile as sf
 import os
@@ -26,29 +26,29 @@ open_AI_key = os.environ.get('OPENAI_API_KEY')
 #openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 # Model Initialization
-USE_DIFFUSION_DECODER = False
-model = MusicGen.get_pretrained('facebook/musicgen-small')
-if USE_DIFFUSION_DECODER:
-    mbd = MultiBandDiffusion.get_mbd_musicgen()
+# USE_DIFFUSION_DECODER = False
+# model = MusicGen.get_pretrained('facebook/musicgen-small')
+# if USE_DIFFUSION_DECODER:
+#     mbd = MultiBandDiffusion.get_mbd_musicgen()
 
 
-model.set_generation_params(
-    use_sampling=True,
-    top_k=250,
-    duration=5
-)   
+# model.set_generation_params(
+#     use_sampling=True,
+#     top_k=250,
+#     duration=5
+# )   
 
 
-def generate_audio(result_text):
-    output = model.generate(
-        descriptions=[result_text],
-        progress=True, return_tokens=True
-    )
-    audio_data = output[0]
-    out_diffusion = None
-    if USE_DIFFUSION_DECODER:
-        out_diffusion = mbd.tokens_to_wav(output[1])
-    return audio_data, out_diffusion
+# def generate_audio(result_text):
+#     output = model.generate(
+#         descriptions=[result_text],
+#         progress=True, return_tokens=True
+#     )
+#     audio_data = output[0]
+#     out_diffusion = None
+#     if USE_DIFFUSION_DECODER:
+#         out_diffusion = mbd.tokens_to_wav(output[1])
+#     return audio_data, out_diffusion
 
 def numpy_to_bytes(audio_data, sample_rate):
     buffer = io.BytesIO()
