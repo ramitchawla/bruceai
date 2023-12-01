@@ -8,34 +8,34 @@ import numpy as np
 import soundfile as sf
 from audiocraft.models import MusicGen
 
-# Fetch the OpenAI API Key securely
-open_AI_key = os.environ.get('OPENAI_API_KEY')
-if not open_AI_key:
-    raise ValueError("OPENAI_API_KEY environment variable not set.")
+# # Fetch the OpenAI API Key securely
+# open_AI_key = os.environ.get('OPENAI_API_KEY')
+# if not open_AI_key:
+#     raise ValueError("OPENAI_API_KEY environment variable not set.")
 
-# Model Initialization
-model = MusicGen.get_pretrained('facebook/musicgen-small')
+# # Model Initialization
+# model = MusicGen.get_pretrained('facebook/musicgen-small')
 
-model.set_generation_params(
-    use_sampling=True,
-    top_k=250,
-    duration=5
-)
+# model.set_generation_params(
+#     use_sampling=True,
+#     top_k=250,
+#     duration=5
+# )
 
-def generate_audio(result_text):
-    output = model.generate(
-        descriptions=[result_text],
-        progress=True, return_tokens=True
-    )
-    audio_data = output[0]
-    return audio_data
+# def generate_audio(result_text):
+#     output = model.generate(
+#         descriptions=[result_text],
+#         progress=True, return_tokens=True
+#     )
+#     audio_data = output[0]
+#     return audio_data
 
-def numpy_to_bytes(audio_data, sample_rate):
-    buffer = io.BytesIO()
-    audio_data_2d = np.squeeze(audio_data)  # Remove singleton dimensions
-    sf.write(buffer, audio_data_2d.T, sample_rate, format='WAV')  # Transpose if necessary
-    buffer.seek(0)
-    return buffer.getvalue()
+# def numpy_to_bytes(audio_data, sample_rate):
+#     buffer = io.BytesIO()
+#     audio_data_2d = np.squeeze(audio_data)  # Remove singleton dimensions
+#     sf.write(buffer, audio_data_2d.T, sample_rate, format='WAV')  # Transpose if necessary
+#     buffer.seek(0)
+#     return buffer.getvalue()
 
 
 # Streamlit App
@@ -90,14 +90,14 @@ def main():
             st.error("Error in OpenAI API call: " + str(e))
             return
 
-        # Generating and displaying audio
-        try:
-            audio_data, out_diffusion = generate_audio(result_text)
-            st.audio(numpy_to_bytes(audio_data, 32000), format='audio/wav')
-            if out_diffusion:
-                st.audio(numpy_to_bytes(out_diffusion, 32000), format='audio/wav')
-        except Exception as e:
-            st.error("Error in audio generation: " + str(e))
+        # # Generating and displaying audio
+        # try:
+        #     audio_data, out_diffusion = generate_audio(result_text)
+        #     st.audio(numpy_to_bytes(audio_data, 32000), format='audio/wav')
+        #     if out_diffusion:
+        #         st.audio(numpy_to_bytes(out_diffusion, 32000), format='audio/wav')
+        # except Exception as e:
+        #     st.error("Error in audio generation: " + str(e))
 
 # Running the Streamlit app
 if __name__ == "__main__":
