@@ -4,7 +4,7 @@ streamlit-extras
 altair==4.1.0
 openai==0.28.1
 #Add any other packages you use here.
-audiocraft
+audiocraft==1.0.0
 torch==1.11.0
 numpy==1.21.2
 soundfile==0.12.1
