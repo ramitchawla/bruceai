@@ -1,43 +1,27 @@
 import streamlit as st
 import io
 import openai
-import configparser
-from audiocraft.models import MusicGen, MultiBandDiffusion
-import torch
-import soundfile as sf
 import os
-import numpy as np 
+import numpy as np
+import soundfile as sf
+from audiocraft.models import MusicGen, MultiBandDiffusion
 
-
+# Fetch the OpenAI API Key securely
 open_AI_key = os.environ.get('OPENAI_API_KEY')
-#openai.api_key = open_AI_key
+if not open_AI_key:
+    raise ValueError("OPENAI_API_KEY environment variable not set.")
 
-
-
-# Configuration Loading
-# config_ini_location = 'config_new.ini'
-# config = configparser.ConfigParser()
-# config.read(config_ini_location)
-# openai_api_key = config['OpenAI']['API_KEY']
-
-
-#openai_api_key = openai.api_key
-
-#openai.api_key = os.environ.get('OPENAI_API_KEY')
-
-#Model Initialization
+# Model Initialization
 USE_DIFFUSION_DECODER = False
 model = MusicGen.get_pretrained('facebook/musicgen-small')
 if USE_DIFFUSION_DECODER:
     mbd = MultiBandDiffusion.get_mbd_musicgen()
 
-
 model.set_generation_params(
     use_sampling=True,
     top_k=250,
     duration=5
-)   
-
+)
 
 def generate_audio(result_text):
     output = model.generate(
@@ -54,13 +38,14 @@ def numpy_to_bytes(audio_data, sample_rate):
     buffer = io.BytesIO()
     audio_data_2d = np.squeeze(audio_data)  # Remove singleton dimensions
     sf.write(buffer, audio_data_2d.T, sample_rate, format='WAV')  # Transpose if necessary
+    buffer.seek(0)
     return buffer.getvalue()
 
-#Streamlit App
+# Streamlit App
 def main():
     st.title("Fitness Activity Audio Generator")
 
-    # Collecting user inputs
+    # User Inputs
     st.subheader("Activity Information")
     activity_date = st.text_input("Activity Date", value='2023-10-29')
     start_time = st.text_input("Start Time", value='12:00:00')
@@ -74,13 +59,8 @@ def main():
     steps = st.text_input("Steps", value='400')
     notes = st.text_area("Notes", value='I feel tired and unmotivated.')
 
-
-
-
-
-
     # Action Button
-    if st.button("Action"):
+    if st.button("Generate Audio"):
         user_input = f"""
         Activity Date: {activity_date}
         Start Time: {start_time}
@@ -94,32 +74,34 @@ def main():
         Steps: {steps}
         Notes: {notes}
         """ 
-        
 
         # OpenAI API Call
         openai.api_key = open_AI_key
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=(
-                "Generate a text based on what this person's activity shows. "
-                "If it has a negative implication, suggest a positive statement "
-                "to help and encourage them to recover from the negative situation.\n"
-                f"Response: {user_input}"
-            ),
-            max_tokens=50
-        )
-
-        result_text = response.choices[0].text.strip()
-
-        print(result_text +"...................... :)")
+        try:
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=(
+                    "Generate a text based on what this person's activity shows. "
+                    "If it has a negative implication, suggest a positive statement "
+                    "to help and encourage them to recover from the negative situation.\n"
+                    f"Response: {user_input}"
+                ),
+                max_tokens=50
+            )
+            result_text = response.choices[0].text.strip()
+        except Exception as e:
+            st.error("Error in OpenAI API call: " + str(e))
+            return
 
         # Generating and displaying audio
-        audio_data, out_diffusion = generate_audio(result_text)
-        st.audio(numpy_to_bytes(audio_data, 32000), format='wav')
-        if out_diffusion:
-            st.audio(numpy_to_bytes(out_diffusion, 32000), format='wav')
+        try:
+            audio_data, out_diffusion = generate_audio(result_text)
+            st.audio(numpy_to_bytes(audio_data, 32000), format='audio/wav')
+            if out_diffusion:
+                st.audio(numpy_to_bytes(out_diffusion, 32000), format='audio/wav')
+        except Exception as e:
+            st.error("Error in audio generation: " + str(e))
 
-# Running the main function
+# Running the Streamlit app
 if __name__ == "__main__":
     main()
- 
