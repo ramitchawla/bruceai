@@ -5,6 +5,7 @@ torch
 audiocraft
 altair==4.1.0
 openai==0.28.1
+soundfile
 
 
 
