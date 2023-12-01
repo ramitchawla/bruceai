@@ -2,6 +2,8 @@ python-dotenv==1.0.0
 streamlit==1.18.1
 streamlit-extras
 torch
+torchvision
+torchaudio
 audiocraft
 altair==4.1.0
 openai==0.28.1
