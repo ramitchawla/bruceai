@@ -1,8 +1,9 @@
 import streamlit as st
+import os
 import torch
 import io
 import openai
-import os
+
 import numpy as np
 import soundfile as sf
 from audiocraft.models import MusicGen
