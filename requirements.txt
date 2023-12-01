@@ -1,10 +1,10 @@
-torch -f https://download.pytorch.org/whl/torch_stable.html
-torchvision -f https://download.pytorch.org/whl/torch_stable.html
-torchaudio -f https://download.pytorch.org/whl/torch_stable.html
-python-dotenv==1.0.0
-streamlit==1.18.1
-streamlit-extras
+
+
+
+
+streamlit==0.88.0
+torch==1.11.0
+openai==0.27.0
+numpy==1.21.2
+soundfile==0.12.1
 audiocraft
-altair==4.1.0
-openai==0.28.1
-soundfile
