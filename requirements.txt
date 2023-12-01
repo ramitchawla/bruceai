@@ -7,10 +7,3 @@ openai==0.28.1
 numpy==1.21.2
 soundfile==0.12.1
 audiocraft
-
-
-
-
-
-
-
