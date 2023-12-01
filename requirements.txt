@@ -3,7 +3,7 @@ streamlit==1.18.1
 streamlit-extras
 altair==4.1.0
 torch==1.11.0
-openai==0.27.0
+openai==0.28.1
 numpy==1.21.2
 soundfile==0.12.1
 audiocraft
