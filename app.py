@@ -8,7 +8,11 @@ import numpy as np
 import soundfile as sf
 #from audiocraft.models import MusicGen
 #from audiocraft.models import musicgen
-from audiocraft.models import musicgen
+#from audiocraft.models import musicgen
+
+from transformers import pipeline
+
+
 
 # # Fetch the OpenAI API Key securely
 open_AI_key = os.environ.get('OPENAI_API_KEY')
@@ -20,7 +24,7 @@ if not open_AI_key:
 #model = MusicGen.get_pretrained('facebook/musicgen-small')
 #model = musicgen.MusicGen.get_pretrained('small', device='cpu')
 
-model = musicgen.MusicGen.get_pretrained('small', device='cpu')
+model = pipeline("text-to-audio", model="facebook/musicgen-large")
 #model.set_generation_params(duration=8)
 
 # model.set_generation_params(
