@@ -15,6 +15,7 @@ open_AI_key = os.environ.get('OPENAI_API_KEY')
 if not open_AI_key:
     raise ValueError("OPENAI_API_KEY environment variable not set.")
 
+
 # # Model Initialization
 #model = MusicGen.get_pretrained('facebook/musicgen-small')
 #model = musicgen.MusicGen.get_pretrained('small', device='cpu')
