@@ -6,7 +6,9 @@ openai==0.28.1
 #Add any other packages you use here.
 transformers
 torch==2.1.0
+soundfile
 numpy
+
 
 
 
