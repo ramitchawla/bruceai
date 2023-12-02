@@ -19,6 +19,9 @@ if not open_AI_key:
 #model = MusicGen.get_pretrained('facebook/musicgen-small')
 #model = musicgen.MusicGen.get_pretrained('small', device='cpu')
 
+model = musicgen.MusicGen.get_pretrained('medium', device='cpu')
+model.set_generation_params(duration=8)
+
 # model.set_generation_params(
 #     use_sampling=True,
 #     top_k=250,
