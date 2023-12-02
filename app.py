@@ -4,16 +4,12 @@ import io
 import openai
 import numpy as np
 import soundfile as sf
-from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
-from tts import TTS
+from transformers import pipeline
 
 # Fetch the OpenAI API Key securely
 open_AI_key = os.environ.get('OPENAI_API_KEY')
 if not open_AI_key:
     raise ValueError("OPENAI_API_KEY environment variable not set.")
-
-# Model Initialization
-model = pipeline("text-to-audio", model="facebook/musicgen-small")
 
 # Streamlit App
 def main():
@@ -67,13 +63,19 @@ def main():
             st.error("Error in OpenAI API call: " + str(e))
             return
 
-        # Generate audio using the Transformers model
+        # Initialize the text-to-audio (TTA) pipeline with the MusicGen model
+        synthesiser = pipeline("text-to-audio", "facebook/musicgen-small")
+
+        # Generate audio from the result text
         try:
-            audio = model(result_text, forward_params={"do_sample": True})
-            audio_data = audio["audio"]
-            sampling_rate = audio["sampling_rate"]
-            sf.write("generated_audio.wav", audio_data, sampling_rate)
-            st.audio("generated_audio.wav", format='audio/wav')
+            music = synthesiser(result_text, forward_params={"do_sample": True})
+            
+            # Save the generated music as a .wav file
+            audio_data_2d = np.squeeze(music["audio"])
+            sf.write("musicgen_out.wav", audio_data_2d.T, music["sampling_rate"], format='WAV')
+
+            # Display the audio
+            st.audio("musicgen_out.wav", format='audio/wav')
         except Exception as e:
             st.error("Error in audio generation: " + str(e))
 
