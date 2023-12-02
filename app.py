@@ -17,7 +17,7 @@ if not open_AI_key:
 
 # # Model Initialization
 #model = MusicGen.get_pretrained('facebook/musicgen-small')
-model = musicgen.MusicGen.get_pretrained('small', device='cuda')
+#model = musicgen.MusicGen.get_pretrained('small', device='cuda')
 
 # model.set_generation_params(
 #     use_sampling=True,
