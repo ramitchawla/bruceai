@@ -4,10 +4,10 @@ streamlit-extras
 altair==4.1.0
 openai==0.28.1
 #Add any other packages you use here.
-transformers
+transformers==4.31.0
 
-soundfile
-numpy
+soundfile==0.11.1
+numpy==1.21.2
 
 
 
