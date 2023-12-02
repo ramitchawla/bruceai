@@ -14,7 +14,7 @@ if not open_AI_key:
     raise ValueError("OPENAI_API_KEY environment variable not set.")
 
 # # Model Initialization
-# model = MusicGen.get_pretrained('facebook/musicgen-small')
+model = MusicGen.get_pretrained('facebook/musicgen-small')
 
 # model.set_generation_params(
 #     use_sampling=True,
@@ -40,7 +40,7 @@ if not open_AI_key:
 
 # Streamlit App
 def main():
-    st.title("Fitness Activity Audio Generator")
+    st.title("Bruce Almighty - Fitness Activity Audio Generator")
 
     # User Inputs
     st.subheader("Activity Information")
