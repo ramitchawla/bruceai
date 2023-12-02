@@ -9,9 +9,9 @@ import soundfile as sf
 from audiocraft.models import MusicGen
 
 # # Fetch the OpenAI API Key securely
-# open_AI_key = os.environ.get('OPENAI_API_KEY')
-# if not open_AI_key:
-#     raise ValueError("OPENAI_API_KEY environment variable not set.")
+open_AI_key = os.environ.get('OPENAI_API_KEY')
+if not open_AI_key:
+    raise ValueError("OPENAI_API_KEY environment variable not set.")
 
 # # Model Initialization
 # model = MusicGen.get_pretrained('facebook/musicgen-small')
