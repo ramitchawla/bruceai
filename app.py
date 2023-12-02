@@ -6,8 +6,9 @@ import openai
 
 import numpy as np
 import soundfile as sf
-from audiocraft.models import MusicGen
+#from audiocraft.models import MusicGen
 #from audiocraft.models import musicgen
+from audiocraft.models import musicgen
 
 # # Fetch the OpenAI API Key securely
 open_AI_key = os.environ.get('OPENAI_API_KEY')
