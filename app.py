@@ -1,9 +1,8 @@
 import streamlit as st
 import os
-import io
 import openai
 import numpy as np
-import soundfile as sf
+import scipy.io.wavfile
 from transformers import pipeline
 
 # Fetch the OpenAI API Key securely
@@ -63,18 +62,17 @@ def main():
             st.error("Error in OpenAI API call: " + str(e))
             return
 
-        # Initialize the text-to-audio (TTA) pipeline with the MusicGen model
+        # Initialize the MusicGen model
         synthesiser = pipeline("text-to-audio", "facebook/musicgen-small")
 
         # Generate audio from the result text
         try:
             music = synthesiser(result_text, forward_params={"do_sample": True})
-            
-            # Save the generated music as a .wav file
-            audio_data_2d = np.squeeze(music["audio"])
-            sf.write("musicgen_out.wav", audio_data_2d.T, music["sampling_rate"], format='WAV')
 
-            # Display the audio
+            # Save the generated music as a .wav file
+            scipy.io.wavfile.write("musicgen_out.wav", rate=music["sampling_rate"], data=music["audio"])
+
+            # Display the audio in Streamlit
             st.audio("musicgen_out.wav", format='audio/wav')
         except Exception as e:
             st.error("Error in audio generation: " + str(e))
