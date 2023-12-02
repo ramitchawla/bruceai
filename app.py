@@ -5,6 +5,9 @@ import numpy as np
 import scipy.io.wavfile
 from transformers import pipeline
 
+
+
+
 # Fetch the OpenAI API Key securely
 open_AI_key = os.environ.get('OPENAI_API_KEY')
 if not open_AI_key:
