@@ -7,7 +7,7 @@ openai==0.28.1
 audiocraft
 torch==2.1.0
 numpy
-soundfile==0.12.1
+
 
 
 
