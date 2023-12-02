@@ -1,11 +1,11 @@
-
 import streamlit as st
 import os
 import io
 import openai
 import numpy as np
 import soundfile as sf
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
+from tts import TTS
 
 # Fetch the OpenAI API Key securely
 open_AI_key = os.environ.get('OPENAI_API_KEY')
