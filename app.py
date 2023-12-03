@@ -1,17 +1,24 @@
 import streamlit as st
 import os
+import configparser
 import openai
 import numpy as np
 import scipy.io.wavfile
 from transformers import pipeline
 
 
+config_ini_location = 'config_new.ini'
 
 
-# Fetch the OpenAI API Key securely
-open_AI_key = os.environ.get('OPENAI_API_KEY')
-if not open_AI_key:
-    raise ValueError("OPENAI_API_KEY environment variable not set.")
+
+config = configparser.ConfigParser()
+config.read(config_ini_location)
+open_AI_key = config['OpenAI']['API_KEY']
+
+
+
+
+
 
 # Streamlit App
 def main():
