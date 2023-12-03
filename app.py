@@ -7,13 +7,11 @@ import scipy.io.wavfile
 from transformers import pipeline
 
 
-config_ini_location = 'config_new.ini'
 
 
 
-config = configparser.ConfigParser()
-config.read(config_ini_location)
-open_AI_key = config['OpenAI']['API_KEY']
+
+open_AI_key = os.environ.get('OPENAI_API_KEY')
 
 
 
