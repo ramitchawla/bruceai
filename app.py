@@ -76,7 +76,7 @@ def main():
         # Generate audio from the result text
         try:
             #music = synthesiser(result_text, forward_params={"do_sample": True})
-            music = synthesiser(result_text, forward_params={"do_sample": True, "max_length": 400, "min_length": 100})
+            music = synthesiser(result_text, forward_params={"do_sample": True, "max_length": 200, "min_length": 100})
             
             # Save the generated music as a .wav file
             # Save the generated music as a .wav file
