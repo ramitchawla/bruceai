@@ -8,7 +8,7 @@ torch
 transformers
 scipy
 soundfile
-numpy==1.21.2
+numpy
 
 
 
