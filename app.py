@@ -53,6 +53,7 @@ def main():
         Notes: {notes}
         """ 
 
+
         # OpenAI API Call
         openai.api_key = open_AI_key
         try:
