@@ -1,12 +1,23 @@
+
 import streamlit as st
 import os
+import configparser
 import openai
-from audiocraft.models import MusicGen
-from audiocraft.data.audio import audio_write
+import numpy as np
+import scipy.io.wavfile
+from transformers import pipeline
 
-# Initialize the MusicGen model
-model = MusicGen.get_pretrained("small")
-model.set_generation_params(duration=8)  # Set duration to 8 seconds
+
+
+
+
+
+open_AI_key = os.environ.get('OPENAI_API_KEY')
+
+
+
+
+
 
 # Streamlit App
 def main():
@@ -26,10 +37,7 @@ def main():
     steps = st.text_input("Steps", value='400')
     notes = st.text_area("Notes", value='I feel tired and unmotivated.')
 
-    # Load OpenAI key
-    open_AI_key = os.environ.get('OPENAI_API_KEY')
-
-    # Action Button with condition to limit unnecessary API calls
+    # Action Button
     if st.button("Generate Audio"):
         user_input = f"""
         Activity Date: {activity_date}
@@ -63,21 +71,24 @@ def main():
             st.error("Error in OpenAI API call: " + str(e))
             return
 
-        # Generate audio using Audiocraft's MusicGen
+        # Initialize the MusicGen model
+        synthesiser = pipeline("text-to-audio", "facebook/musicgen-small")
+
+        # Generate audio from the result text
         try:
-            descriptions = [result_text]  # Use result_text as a description for audio generation
-            wav = model.generate(descriptions)
+            #music = synthesiser(result_text, forward_params={"do_sample": True})
+            music = synthesiser(result_text, forward_params={"do_sample": True, "max_length": 100, "min_length": 50})
+            
+            # Save the generated music as a .wav file
+            # Save the generated music as a .wav file
+            scipy.io.wavfile.write("musicgen_out.wav", rate=music["sampling_rate"], data=music["audio"])
 
-            for idx, one_wav in enumerate(wav):
-                audio_file = f'{idx}.wav'
-                audio_write(audio_file, one_wav.cpu(), model.sample_rate, strategy="loudness")
-
-                # Display the generated audio file
-                st.audio(audio_file, format='audio/wav')
-
+            # Display the audio in Streamlit
+            st.audio("musicgen_out.wav", format='audio/wav')
         except Exception as e:
             st.error("Error in audio generation: " + str(e))
 
 # Running the Streamlit app
 if __name__ == "__main__":
     main()
+
