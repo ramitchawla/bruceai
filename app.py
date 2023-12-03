@@ -1,11 +1,12 @@
 import streamlit as st
 import os
 import openai
-import scipy.io.wavfile
-from transformers import pipeline
+from audiocraft.models import MusicGen
+from audiocraft.data.audio import audio_write
 
-# Initialize the MusicGen model outside the main function
-synthesizer = pipeline("text-to-audio", model="facebook/musicgen-small")
+# Initialize the MusicGen model
+model = MusicGen.get_pretrained("small")
+model.set_generation_params(duration=8)  # Set duration to 8 seconds
 
 # Streamlit App
 def main():
@@ -62,14 +63,18 @@ def main():
             st.error("Error in OpenAI API call: " + str(e))
             return
 
-        # Generate audio from the result text using cached synthesizer
+        # Generate audio using Audiocraft's MusicGen
         try:
-            music = synthesizer(result_text, forward_params={"do_sample": True, "max_length": 100, "min_length": 50})
-            audio_file = "musicgen_out.wav"
-            scipy.io.wavfile.write(audio_file, rate=music["sampling_rate"], data=music["audio"])
+            descriptions = [result_text]  # Use result_text as a description for audio generation
+            wav = model.generate(descriptions)
 
-            # Cache the audio file to avoid regeneration
-            st.audio(audio_file, format='audio/wav')
+            for idx, one_wav in enumerate(wav):
+                audio_file = f'{idx}.wav'
+                audio_write(audio_file, one_wav.cpu(), model.sample_rate, strategy="loudness")
+
+                # Display the generated audio file
+                st.audio(audio_file, format='audio/wav')
+
         except Exception as e:
             st.error("Error in audio generation: " + str(e))
 
