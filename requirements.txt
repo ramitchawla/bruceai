@@ -1,15 +1,16 @@
 python-dotenv==1.0.0
-streamlit==1.18.1  
+streamlit
 streamlit-extras
 altair==4.1.0
 openai==0.28.1
 #Add any other packages you use here.
+ffmpeg-python
+git+https://github.com/facebookresearch/audiocraft.git
 torch
 transformers
 scipy
 soundfile
 numpy
-
 
 
 

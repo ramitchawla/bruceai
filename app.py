@@ -1,3 +1,4 @@
+
 import streamlit as st
 import os
 import configparser
@@ -5,11 +6,22 @@ import openai
 import scipy.io.wavfile
 from transformers import pipeline
 
+<<<<<<< HEAD
 # Read configuration
 config_ini_location = 'config_new.ini'
 config = configparser.ConfigParser()
 config.read(config_ini_location)
 open_AI_key = config['OpenAI']['API_KEY']
+=======
+
+
+
+
+
+open_AI_key = os.environ.get('OPENAI_API_KEY')
+
+
+>>>>>>> c72d86ef1fdb15c63ee7a146aa0600d57aeb0622
 
 # Streamlit App
 def main():
@@ -48,15 +60,37 @@ def main():
         Notes: {notes}
         """ 
 
+<<<<<<< HEAD
         if choice == "Generate a New Song":
             generate_new_song(user_input)
         elif choice == "Get a Song Suggestion from Spotify":
             st.info("Feature under development")
+=======
+
+        # OpenAI API Call
+        openai.api_key = open_AI_key
+        try:
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=(
+                    "Generate a text based on what this person's activity shows. "
+                    "If it has a negative implication, suggest a positive statement "
+                    "to help and encourage them to recover from the negative situation.\n"
+                    f"Response: {user_input}"
+                ),
+                max_tokens=50
+            )
+            result_text = response.choices[0].text.strip()
+        except Exception as e:
+            st.error("Error in OpenAI API call: " + str(e))
+            return
+>>>>>>> c72d86ef1fdb15c63ee7a146aa0600d57aeb0622
 
 def generate_new_song(user_input):
     # Set OpenAI API key
     openai.api_key = open_AI_key
 
+<<<<<<< HEAD
     # OpenAI API Call
     try:
         response = openai.Completion.create(
@@ -73,6 +107,16 @@ def generate_new_song(user_input):
     except Exception as e:
         st.error("Error in OpenAI API call: " + str(e))
         return
+=======
+        # Generate audio from the result text
+        try:
+            #music = synthesiser(result_text, forward_params={"do_sample": True})
+            music = synthesiser(result_text, forward_params={"do_sample": True, "max_length": 100, "min_length": 50})
+            
+            # Save the generated music as a .wav file
+            # Save the generated music as a .wav file
+            scipy.io.wavfile.write("musicgen_out.wav", rate=music["sampling_rate"], data=music["audio"])
+>>>>>>> c72d86ef1fdb15c63ee7a146aa0600d57aeb0622
 
     # Initialize the MusicGen model
     synthesiser = pipeline("text-to-audio", "facebook/musicgen-small")
@@ -88,3 +132,4 @@ def generate_new_song(user_input):
 # Running the Streamlit app
 if __name__ == "__main__":
     main()
+
