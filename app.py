@@ -7,7 +7,15 @@ from transformers import pipeline
 
 
 
+
+
+
 open_AI_key = os.environ.get('OPENAI_API_KEY')
+
+
+
+
+
 
 # Streamlit App
 def main():
@@ -46,42 +54,41 @@ def main():
         Notes: {notes}
         """ 
 
-        if choice == "Generate a New Song":
-            generate_new_song(user_input)
-        elif choice == "Get a Song Suggestion from Spotify":
-            st.info("Feature under development")
 
-def generate_new_song(user_input):
-    # Set OpenAI API key
-    openai.api_key = open_AI_key
+        # OpenAI API Call
+        openai.api_key = open_AI_key
+        try:
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=(
+                    "Generate a text based on what this person's activity shows. "
+                    "If it has a negative implication, suggest a positive statement "
+                    "to help and encourage them to recover from the negative situation.\n"
+                    f"Response: {user_input}"
+                ),
+                max_tokens=50
+            )
+            result_text = response.choices[0].text.strip()
+        except Exception as e:
+            st.error("Error in OpenAI API call: " + str(e))
+            return
 
-    # OpenAI API Call
-    try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=(
-                "Generate a text based on what this person's activity shows. "
-                "If it has a negative implication, suggest a positive statement "
-                "to help and encourage them to recover from the negative situation.\n"
-                f"Response: {user_input}"
-            ),
-            max_tokens=50
-        )
-        result_text = response.choices[0].text.strip()
-    except Exception as e:
-        st.error("Error in OpenAI API call: " + str(e))
-        return
+        # Initialize the MusicGen model
+        synthesiser = pipeline("text-to-audio", "facebook/musicgen-small")
 
-    # Initialize the MusicGen model
-    synthesiser = pipeline("text-to-audio", "facebook/musicgen-small")
+        # Generate audio from the result text
+        try:
+            #music = synthesiser(result_text, forward_params={"do_sample": True})
+            music = synthesiser(result_text, forward_params={"do_sample": True, "max_length": 100, "min_length": 50})
+            
+            # Save the generated music as a .wav file
+            # Save the generated music as a .wav file
+            scipy.io.wavfile.write("musicgen_out.wav", rate=music["sampling_rate"], data=music["audio"])
 
-    # Generate audio from the result text
-    try:
-        music = synthesiser(result_text, forward_params={"do_sample": True, "max_length": 100, "min_length": 50})
-        scipy.io.wavfile.write("musicgen_out.wav", rate=music["sampling_rate"], data=music["audio"])
-        st.audio("musicgen_out.wav", format='audio/wav')
-    except Exception as e:
-        st.error("Error in audio generation: " + str(e))
+            # Display the audio in Streamlit
+            st.audio("musicgen_out.wav", format='audio/wav')
+        except Exception as e:
+            st.error("Error in audio generation: " + str(e))
 
 # Running the Streamlit app
 if __name__ == "__main__":
