@@ -11,7 +11,7 @@ transformers
 scipy
 soundfile
 numpy
-
+spotipy
 
 
 
