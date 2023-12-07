@@ -8,6 +8,8 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
 open_AI_key = os.environ.get('OPENAI_API_KEY')
+spotify_client = os.environ.get('spotify_client')
+spotify_secret = os.environ.get('spotify_secret')
 
 # Function to extract mood from text using OpenAI
 def extract_mood(user_input):
@@ -34,8 +36,8 @@ def extract_mood(user_input):
 
 # Function to get Spotify song suggestion
 def get_spotify_song(mood):
-    spotify_client_id = '1effb3e792d34d829ba1b7598457f292'
-    spotify_client_secret = 'a4a2b0d29efd4036819712b13c61f7f1'
+    spotify_client_id = spotify_client
+    spotify_client_secret = spotify_secret
     client_credentials_manager = SpotifyClientCredentials(client_id=spotify_client_id, client_secret=spotify_client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
