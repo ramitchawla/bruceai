@@ -104,7 +104,7 @@ def main():
     data_choice = st.radio("Choose the type of data you want to enter:", ["Sleep", "Fatigue"])
 
     user_input = ""
-    if data_choice == "Sleep":
+    if data_choice == "Sleep Data":
         st.subheader("Sleep Data Information")
         pressure_intensity = st.slider("Stress Level", min_value=0, max_value=10, value=5)
         quality_of_sleep = st.slider("Quality of sleep", min_value=0, max_value=10, value=6)
@@ -115,7 +115,7 @@ def main():
 
 
     elif data_choice == "Fatigue":
-        st.subheader("Fatigue Data Information")
+        st.subheader("Activity Data")
         # Fields for Fatigue Data (as provided)
         activity_date = st.date_input("Activity Date", datetime.date(2023, 10, 29))
         start_time = st.text_input("Start Time", value='08:00:00')  # Early start
