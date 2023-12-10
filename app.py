@@ -67,10 +67,10 @@ def generate_new_song(user_input):
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=(
-                "Based on the following user input, suggest a single mood keyword for a Spotify song. "
-            "If the input suggests a negative or tired mood, suggest a mood that's uplifting  "
-            "If the input is positive, suggest a mood that maintains the positivity:\n\n"
-            f"{user_input}"
+                "Generate a text based on what this person's activity shows. "
+                "If it has a negative implication, suggest a positive statement "
+                "to help and encourage them to recover from the negative situation.\n"
+                f"Response: {user_input}"
             ),
             max_tokens=50
         )
@@ -114,7 +114,7 @@ def main():
         user_input = f"Stress Level: {pressure_intensity}, Quality of Sleep: {quality_of_sleep}, Sleep Duration: {sleep_duration}, Sleep Disorder: {sleep_disorder_choice}, Notes: {notes}"
 
 
-    elif data_choice == "Activity Data":
+    elif data_choice == "Fatigue":
         st.subheader("Fatigue Data Information")
         # Fields for Fatigue Data (as provided)
         activity_date = st.date_input("Activity Date", datetime.date(2023, 10, 29))
