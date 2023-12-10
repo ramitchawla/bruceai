@@ -1,5 +1,6 @@
 import streamlit as st
 import openai
+import datetime
 import os
 import scipy.io.wavfile
 from transformers import pipeline
@@ -115,17 +116,17 @@ def main():
     elif data_choice == "Fatigue":
         st.subheader("Fatigue Data Information")
         # Fields for Fatigue Data (as provided)
-        activity_date = st.text_input("Activity Date", value='2023-10-29')
-        start_time = st.text_input("Start Time", value='12:00:00')
-        end_time = st.text_input("End Time", value='12:10:00')
-        activity_type = st.text_input("Type", value='Walking')
-        duration = st.text_input("Duration (seconds)", value='600')
-        distance = st.text_input("Distance (meters)", value='300')
-        calories_burned = st.text_input("Calories Burned", value='20')
-        avg_heart_rate = st.text_input("Average Heart Rate", value='80')
-        peak_heart_rate = st.text_input("Peak Heart Rate", value='90')
-        steps = st.text_input("Steps", value='400')
-        notes = st.text_area("Notes", value='I feel tired and unmotivated.')
+        activity_date = st.date_input("Activity Date", datetime.date(2023, 10, 29))
+        start_time = st.text_input("Start Time", value='08:00:00')  # Early start
+        end_time = st.text_input("End Time", value='20:00:00')  # Long day
+        activity_type = st.text_input("Type", value='Running')  # More strenuous than walking
+        duration = st.text_input("Duration (seconds)", value='36000')  # Longer duration
+        distance = st.text_input("Distance (meters)", value='10000')  # Greater distance
+        calories_burned = st.text_input("Calories Burned", value='1000')  # Higher calorie burn
+        avg_heart_rate = st.text_input("Average Heart Rate", value='120')  # Elevated heart rate
+        peak_heart_rate = st.text_input("Peak Heart Rate", value='160')  # Higher peak heart rate
+        steps = st.text_input("Steps", value='20000')  # More steps
+        notes = st.text_area("Notes", value='I feel extremely fatigued, my muscles are sore, and I have low energy.')
         user_input = f"""
             Activity Date: {activity_date}
             Start Time: {start_time}
