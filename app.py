@@ -98,7 +98,7 @@ def generate_new_song(user_input):
 
 # Streamlit App main function
 def main():
-    st.title("Bruce Almighty - Fitness Activity Audio Generator")
+    st.title("Bruce Almighty - Feel Better")
 
     # User choice for Sleep or Fatigue data
     data_choice = st.radio("Choose the type of data you want to enter:", ["Sleep", "Fatigue"])
