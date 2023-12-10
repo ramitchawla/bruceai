@@ -101,10 +101,10 @@ def main():
     st.title("Bruce Almighty - Feel Better")
 
     # User choice for Sleep or Fatigue data
-    data_choice = st.radio("Choose the type of data you want to enter:", ["Sleep", "Fatigue"])
+    data_choice = st.radio("Choose the type of data you want to enter:", ["Sleep Data", "Activity Data"])
 
     user_input = ""
-    if data_choice == "Sleep":
+    if data_choice == "Sleep Data":
         st.subheader("Sleep Data Information")
         pressure_intensity = st.slider("Stress Level", min_value=0, max_value=10, value=5)
         quality_of_sleep = st.slider("Quality of sleep", min_value=0, max_value=10, value=6)
@@ -114,7 +114,7 @@ def main():
         user_input = f"Stress Level: {pressure_intensity}, Quality of Sleep: {quality_of_sleep}, Sleep Duration: {sleep_duration}, Sleep Disorder: {sleep_disorder_choice}, Notes: {notes}"
 
 
-    elif data_choice == "Activity":
+    elif data_choice == "Activity Data":
         st.subheader("Fatigue Data Information")
         # Fields for Fatigue Data (as provided)
         activity_date = st.date_input("Activity Date", datetime.date(2023, 10, 29))
