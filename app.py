@@ -67,10 +67,10 @@ def generate_new_song(user_input):
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=(
-                "Generate a text based on what this person's activity shows. "
-                "If it has a negative implication, suggest a positive statement "
-                "to help and encourage them to recover from the negative situation.\n"
-                f"Response: {user_input}"
+                "Based on the following user input, suggest a single mood keyword for a Spotify song. "
+            "If the input suggests a negative or tired mood, suggest a mood that's uplifting  "
+            "If the input is positive, suggest a mood that maintains the positivity:\n\n"
+            f"{user_input}"
             ),
             max_tokens=50
         )
