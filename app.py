@@ -19,7 +19,8 @@ def extract_mood(user_input):
     try:
         prompt = (
             "Based on the following user input, suggest a single mood keyword for a Spotify song. "
-            "If the input suggests a negative or tired mood, suggest a mood that's uplifting or energizing. "
+            "If the input suggests a negative or tired mood, suggest a mood that's relaxing "
+            "Essentially, suggest a song that is positive if user input is negative and also helps the user"
             "If the input is positive, suggest a mood that maintains the positivity:\n\n"
             f"{user_input}"
         )
