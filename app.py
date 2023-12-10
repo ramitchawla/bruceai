@@ -114,8 +114,8 @@ def main():
         user_input = f"Stress Level: {pressure_intensity}, Quality of Sleep: {quality_of_sleep}, Sleep Duration: {sleep_duration}, Sleep Disorder: {sleep_disorder_choice}, Notes: {notes}"
 
 
-    elif data_choice == "Fatigue":
-        st.subheader("Activity Data")
+    elif data_choice == "Activity Data":
+        st.subheader("Fatigue Data Information")
         # Fields for Fatigue Data (as provided)
         activity_date = st.date_input("Activity Date", datetime.date(2023, 10, 29))
         start_time = st.text_input("Start Time", value='08:00:00')  # Early start
